@@ -8,16 +8,16 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class Post {
-	String isbnNo;
-	String bookName;
-	String author;
-	String publisher;
-	Thumbnail thumbnail;
-	String title;
-	String content;
-	double rating;
-	int likeCount;
-	int bookmarkCount;
-	String isPublic;
-	String memberId;
+		String isbnNo;
+		String bookName;
+		String author;
+		String publisher;
+		Thumbnail thumbnail;
+		String title;
+		String content;
+		double rating;
+		int likeCount;
+		int bookmarkCount;
+		String isPublic;
+		String memberId;
 }
