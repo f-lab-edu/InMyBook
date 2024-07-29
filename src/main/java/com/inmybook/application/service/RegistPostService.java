@@ -1,16 +1,24 @@
 package com.inmybook.application.service;
 
-import com.inmybook.adapter.in.web.dto.PostDto;
+import com.inmybook.application.port.in.RegistPostCommand;
 import com.inmybook.application.port.in.RegistPostUsecase;
+import com.inmybook.application.port.out.RegistPostPort;
+import com.inmybook.domain.post.Post;
 import com.inmybook.domain.post.PostFactory;
 
-public class RegistPostService implements RegistPostUsecase {
-		private final PostFactory postFactory = new PostFactory();
-		// private final PostRepository postRepository = new PostRepositoryImpl();
+import lombok.RequiredArgsConstructor;
 
-		@Override
-		public void registPost(PostDto postDto) {
-				// Post post = postFactory.createPost(postDto);
-				// postRepository.registPost(post);
-		}
+@RequiredArgsConstructor
+public class RegistPostService implements RegistPostUsecase {
+	private final PostFactory postFactory;
+	private final RegistPostPort registPostPort;
+
+	@Override
+	public String registPost(RegistPostCommand registPostCommand) {
+		Post post = postFactory.createPost(registPostCommand);
+		int postNum = registPostPort.registPost(post);
+
+		String path = "/post/" + postNum;
+		return path;
+	}
 }
