@@ -8,22 +8,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class Post {
-	String isbnNo;
-	String bookName;
-	String author;
-	String publisher;
-	String title;
-	String content;
-	String fromDate;
-	String toDate;
-	double rating;
-	int likeCount;
-	int bookmarkCount;
-	String isPublic;
-	String memberId;
-	String thumbnailName;
-	Long thumbnailSize;
-	String thumbnailExt;
+	private String isbnNo;
+	private String bookName;
+	private String author;
+	private String publisher;
+	private String title;
+	private String content;
+	private String fromDate;
+	private String toDate;
+	private double rating;
+	private int likeCount;
+	private int bookmarkCount;
+	private String isPublic;
+	private String memberId;
+	private String thumbnailName;
+	private Long thumbnailSize;
+	private String thumbnailExt;
 	@Builder.Default
-	byte[] thumbnailData = new byte[0];
+	private byte[] thumbnailData = new byte[0];
 }

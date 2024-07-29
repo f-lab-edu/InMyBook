@@ -2,14 +2,14 @@ package com.inmybook.domain.member;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Builder
-@Getter
+@NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Member {
-	String memberId;
-	String nickname;
-	String email;
-	String password;
+	private String memberId;
+	private String nickname;
+	private String email;
+	private String password;
 }
