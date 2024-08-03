@@ -3,7 +3,7 @@ package com.inmybook.application.port.in;
 import lombok.Builder;
 
 @Builder
-public record RegistPostCommand(
+public record RegisterPostCommand(
 	String isbnNo,
 	String bookName,
 	String author,

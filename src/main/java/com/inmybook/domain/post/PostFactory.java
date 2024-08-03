@@ -1,25 +1,27 @@
 package com.inmybook.domain.post;
 
-import com.inmybook.application.port.in.RegistPostCommand;
+import com.inmybook.application.port.in.RegisterPostCommand;
 
 public class PostFactory {
-	public Post createPost(RegistPostCommand registPostCommand) {
+	public Post createPost(RegisterPostCommand registerPostCommand) {
 		Post post = Post.builder()
-			.isbnNo(registPostCommand.isbnNo())
-			.bookName(registPostCommand.bookName())
-			.author(registPostCommand.author())
-			.publisher(registPostCommand.publisher())
-			.title(registPostCommand.title())
-			.content(registPostCommand.content())
-			.rating(registPostCommand.rating())
-			.likeCount(registPostCommand.likeCount())
-			.bookmarkCount(registPostCommand.bookmarkCount())
-			.isPublic(registPostCommand.isPublic())
-			.memberId(registPostCommand.memberId())
-			.thumbnailName(registPostCommand.thumbnailName())
-			.thumbnailSize(registPostCommand.thumbnailSize())
-			.thumbnailExt(registPostCommand.thumbnailExt())
-			.thumbnailData(registPostCommand.thumbnailData())
+			.isbnNo(registerPostCommand.isbnNo())
+			.bookName(registerPostCommand.bookName())
+			.author(registerPostCommand.author())
+			.publisher(registerPostCommand.publisher())
+			.title(registerPostCommand.title())
+			.content(registerPostCommand.content())
+			.fromDate(registerPostCommand.fromDate())
+			.toDate(registerPostCommand.toDate())
+			.rating(registerPostCommand.rating())
+			.likeCount(registerPostCommand.likeCount())
+			.bookmarkCount(registerPostCommand.bookmarkCount())
+			.isPublic(registerPostCommand.isPublic())
+			.memberId(registerPostCommand.memberId())
+			.thumbnailName(registerPostCommand.thumbnailName())
+			.thumbnailSize(registerPostCommand.thumbnailSize())
+			.thumbnailExt(registerPostCommand.thumbnailExt())
+			.thumbnailData(registerPostCommand.thumbnailData())
 			.build();
 
 		return post;

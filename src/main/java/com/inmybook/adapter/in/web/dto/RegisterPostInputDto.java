@@ -3,7 +3,7 @@ package com.inmybook.adapter.in.web.dto;
 import lombok.Builder;
 
 @Builder
-public record RegistPostInputDto(
+public record RegisterPostInputDto(
 	String isbnNo,
 	String bookName,
 	String author,
