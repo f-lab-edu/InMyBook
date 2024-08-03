@@ -16,9 +16,8 @@ public class RegisterPostService implements RegisterPostUseCase {
 	@Override
 	public String registerPost(RegisterPostCommand registerPostCommand) {
 		Post post = postFactory.createPost(registerPostCommand);
-		int postNum = registerPostPort.registerPost(post);
+		String path = registerPostPort.registerPost(post);
 
-		String path = "/post/" + postNum;
 		return path;
 	}
 }

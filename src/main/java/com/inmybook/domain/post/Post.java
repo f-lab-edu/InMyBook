@@ -26,4 +26,9 @@ public class Post {
 	private String thumbnailExt;
 	@Builder.Default
 	private byte[] thumbnailData = new byte[0];
+
+	public String createPostPath(int id) {
+		String path = "/post/" + id;
+		return path;
+	}
 }

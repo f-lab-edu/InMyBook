@@ -26,13 +26,15 @@ class RegisterPostServiceTest {
 	RegisterPostPort registerPostPort;
 
 	@Mock
-	PostFactory postFactory;
+	PostFactory mockPostFactory;
 
 	@Test
 	@DisplayName("사용자는 독서록 게시글을 등록할 수 있다.")
 	void registerPostTest() {
 		// input : 책 정보, 유저 정보, 게시글 정보
 		// output : 상세 조회 url
+		
+		PostFactory postFactory = new PostFactory();
 
 		byte[] thumbnailData = new byte[0];
 		RegisterPostInputDto registerPostInputDto = new RegisterPostInputDto(
@@ -76,9 +78,10 @@ class RegisterPostServiceTest {
 			.build();
 
 		Post post = postFactory.createPost(registerPostCommand);
-		when(registerPostPort.registerPost(post)).thenReturn(1);
+		String path = post.createPostPath(1);
+		when(mockPostFactory.createPost(registerPostCommand)).thenReturn(post);
+		when(registerPostPort.registerPost(post)).thenReturn(path);
 
-		String path = "/post/1";
 		assertThat(registerPostUseCase.registerPost(registerPostCommand)).isEqualTo(path);
 	}
 
