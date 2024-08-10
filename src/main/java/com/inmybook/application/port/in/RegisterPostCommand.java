@@ -1,25 +1,27 @@
 package com.inmybook.application.port.in;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 
 @Builder
 public record RegisterPostCommand(
+	@NotNull
 	String isbnNo,
+	@NotNull
 	String bookName,
 	String author,
 	String publisher,
+	@NotNull
 	String title,
 	String content,
 	String fromDate,
 	String toDate,
 	double rating,
-	int likeCount,
-	int bookmarkCount,
 	String isPublic,
+	@NotNull
 	String memberId,
-	String thumbnailName,
-	Long thumbnailSize,
-	String thumbnailExt,
-	byte[] thumbnailData
+	MultipartFile thumbnailImg
 ) {
 }
