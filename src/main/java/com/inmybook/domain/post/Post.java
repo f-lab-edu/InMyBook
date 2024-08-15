@@ -6,13 +6,21 @@ import lombok.Builder;
 
 @Builder
 public class Post {
-	private int postId;
+	private Long postId;
 	private Book book;
 	private Content content;
 	private Thumbnail thumbnail;
 	private Member member;
 
-	public String createPostPath(int id) {
+	public Long getPostId() {
+		return postId;
+	}
+
+	public void setPostId(Long postId) {
+		this.postId = postId;
+	}
+
+	public String createPostPath(Long id) {
 		String path = "/post/" + id;
 		return path;
 	}

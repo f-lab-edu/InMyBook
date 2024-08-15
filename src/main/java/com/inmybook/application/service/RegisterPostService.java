@@ -21,7 +21,8 @@ public class RegisterPostService implements RegisterPostUseCase {
 	@Override
 	public String registerPost(RegisterPostCommand registerPostCommand) throws IOException {
 		Post post = postFactory.createPost(registerPostCommand);
-		String path = registerPostPort.registerPost(post);
+		Long postNo = registerPostPort.save(post);
+		String path = post.createPostPath(postNo);
 
 		return path;
 	}

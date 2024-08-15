@@ -13,8 +13,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.inmybook.adapter.out.InMemoryPostRepository;
 import com.inmybook.application.port.in.RegisterPostCommand;
-import com.inmybook.application.port.out.RegisterPostPort;
 import com.inmybook.domain.post.Post;
 import com.inmybook.domain.post.PostFactory;
 
@@ -25,7 +25,7 @@ class RegisterPostServiceTest {
 	RegisterPostService registerPostUseCase;
 
 	@Mock
-	RegisterPostPort registerPostPort;
+	InMemoryPostRepository registerPostPort;
 
 	@Mock
 	PostFactory mockPostFactory;
@@ -56,8 +56,9 @@ class RegisterPostServiceTest {
 
 		Post post = postFactory.createPost(registerPostCommand);
 		when(mockPostFactory.createPost(registerPostCommand)).thenReturn(post);
-		String path = post.createPostPath(1);
-		when(registerPostPort.registerPost(post)).thenReturn(path);
+		Long postNo = 1L;
+		when(registerPostPort.save(post)).thenReturn(postNo);
+		String path = post.createPostPath(postNo);
 
 		assertThat(registerPostUseCase.registerPost(registerPostCommand)).isEqualTo(path);
 	}
@@ -88,8 +89,9 @@ class RegisterPostServiceTest {
 
 		Post post = postFactory.createPost(registerPostCommand);
 		when(mockPostFactory.createPost(registerPostCommand)).thenReturn(post);
-		String path = post.createPostPath(1);
-		when(registerPostPort.registerPost(post)).thenReturn(path);
+		Long postNo = 1L;
+		when(registerPostPort.save(post)).thenReturn(postNo);
+		String path = post.createPostPath(postNo);
 
 		assertThat(registerPostUseCase.registerPost(registerPostCommand)).isEqualTo(path);
 	}

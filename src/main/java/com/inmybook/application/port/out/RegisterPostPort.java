@@ -9,5 +9,5 @@ public interface RegisterPostPort {
 	 * @param post
 	 * @return 독서록 상세 조회 API Path
 	 */
-	public String registerPost(Post post);
+	public Long save(Post post);
 }
