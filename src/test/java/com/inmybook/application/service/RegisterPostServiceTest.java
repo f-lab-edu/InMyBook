@@ -3,8 +3,6 @@ package com.inmybook.application.service;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import java.io.IOException;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,7 +30,7 @@ class RegisterPostServiceTest {
 
 	@Test
 	@DisplayName("사용자는 독서록 게시글을 등록할 수 있다.(썸네일 존재하는 경우)")
-	void registerPostWithUploadImgTest() throws IOException {
+	void registerPostWithUploadImgTest() {
 		// input : 책 정보, 유저 정보, 게시글 정보
 		// output : 상세 조회 url
 
@@ -65,7 +63,7 @@ class RegisterPostServiceTest {
 
 	@Test
 	@DisplayName("사용자는 독서록 게시글을 등록할 수 있다.(썸네일 존재하지 않는 경우)")
-	void registerPostWithoutUploadImgTest() throws IOException {
+	void registerPostWithoutUploadImgTest() {
 		// input : 책 정보, 유저 정보, 게시글 정보
 		// output : 상세 조회 url
 

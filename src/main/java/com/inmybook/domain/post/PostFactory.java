@@ -9,13 +9,17 @@ import com.inmybook.domain.member.Member;
 
 @Component
 public class PostFactory {
-	public Post createPost(RegisterPostCommand registerPostCommand) throws IOException {
+	public Post createPost(RegisterPostCommand registerPostCommand) {
 		Thumbnail thumbnail = new Thumbnail();
 		if (registerPostCommand.thumbnailImg() != null) {
-			thumbnail = new Thumbnail(registerPostCommand.thumbnailImg().getName()
-				, registerPostCommand.thumbnailImg().getContentType()
-				, registerPostCommand.thumbnailImg().getSize()
-				, registerPostCommand.thumbnailImg().getBytes());
+			try {
+				thumbnail = new Thumbnail(registerPostCommand.thumbnailImg().getName()
+					, registerPostCommand.thumbnailImg().getContentType()
+					, registerPostCommand.thumbnailImg().getSize()
+					, registerPostCommand.thumbnailImg().getBytes());
+			} catch (IOException e) {
+				throw new RuntimeException("독서록 게시글을 등록할 수 없습니다.");
+			}
 		}
 
 		Book book = Book.builder()
