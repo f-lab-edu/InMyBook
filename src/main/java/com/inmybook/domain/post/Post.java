@@ -3,7 +3,9 @@ package com.inmybook.domain.post;
 import com.inmybook.domain.member.Member;
 
 import lombok.Builder;
+import lombok.Getter;
 
+@Getter
 @Builder
 public class Post {
 	private String postId;

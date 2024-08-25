@@ -1,10 +1,12 @@
 package com.inmybook.domain.post;
 
 import lombok.Builder;
+import lombok.Getter;
 
+@Getter
 @Builder
 public class Content {
-	private int contentId;
+	private Long contentId;
 	private String title;
 	private String content;
 	private String fromDate;
@@ -16,4 +18,5 @@ public class Content {
 	@Builder.Default
 	private int bookmarkCount = 0;
 	private String isPublic;
+	private String uuid;
 }
