@@ -3,7 +3,7 @@ package com.inmybook.application.service;
 import lombok.Builder;
 
 @Builder
-public record ContentResponse(
+public record ContentDetailsOutput(
 	String title,
 	String content,
 	String fromDate,

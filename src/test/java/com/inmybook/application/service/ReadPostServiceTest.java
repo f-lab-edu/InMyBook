@@ -13,7 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.inmybook.adapter.out.InMemoryPostRepository;
-import com.inmybook.application.port.in.ReadPostCommand;
+import com.inmybook.application.port.in.ReadPostInput;
 import com.inmybook.domain.member.Member;
 import com.inmybook.domain.post.Content;
 import com.inmybook.domain.post.Post;
@@ -59,13 +59,13 @@ class ReadPostServiceTest {
 			.member(member)
 			.build();
 
-		ReadPostCommand mockReadPostCommand = new ReadPostCommand(bookUuid);
+		ReadPostInput mockReadPostInput = new ReadPostInput(bookUuid);
 
-		when(readPostPort.findPostById(mockReadPostCommand.uuid())).thenReturn(post);
-		PostResponse postResponse = readPostUseCase.findPostById(mockReadPostCommand);
+		when(readPostPort.findPostById(mockReadPostInput.uuid())).thenReturn(post);
+		PostDetailsOutput postDetailsOutput = readPostUseCase.findPostById(mockReadPostInput);
 
-		assertEquals("HTTP 완벽 가이드 독서록", postResponse.contentResponse().title());
-		assertEquals("dani", postResponse.memberResponse().nickname());
+		assertEquals("HTTP 완벽 가이드 독서록", postDetailsOutput.contentDetailsOutput().title());
+		assertEquals("dani", postDetailsOutput.memberDetailsOutput().nickname());
 	}
 
 	private String getUuid() {
