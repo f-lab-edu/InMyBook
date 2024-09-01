@@ -16,7 +16,7 @@ public class ReadPostService implements ReadPostUseCase {
 
 	@Override
 	public PostDetailsOutput findPostById(ReadPostInput readPostInput) {
-		Post post = readPostPort.findPostById(readPostInput.uuid());
+		Post post = readPostPort.findPostById(readPostInput.postId());
 
 		ContentDetailsOutput contentDetailsOutput = ContentDetailsOutput.builder()
 			.title(post.getContent().getTitle())

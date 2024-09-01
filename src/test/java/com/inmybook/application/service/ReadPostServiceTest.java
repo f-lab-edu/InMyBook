@@ -56,7 +56,7 @@ class ReadPostServiceTest {
 
 		ReadPostInput mockReadPostInput = new ReadPostInput(bookUuid);
 
-		when(readPostPort.findPostById(mockReadPostInput.uuid())).thenReturn(post);
+		when(readPostPort.findPostById(mockReadPostInput.postId())).thenReturn(post);
 		PostDetailsOutput postDetailsOutput = readPostUseCase.findPostById(mockReadPostInput);
 
 		assertEquals("HTTP 완벽 가이드 독서록", postDetailsOutput.contentDetailsOutput().title());

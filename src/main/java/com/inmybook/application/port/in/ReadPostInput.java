@@ -4,6 +4,6 @@ import jakarta.validation.constraints.NotNull;
 
 public record ReadPostInput(
 	@NotNull
-	String uuid
+	String postId
 ) {
 }
