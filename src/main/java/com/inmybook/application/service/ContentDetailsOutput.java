@@ -11,7 +11,6 @@ public record ContentDetailsOutput(
 	double rating,
 	int likeCount,
 	int bookmarkCount,
-	String isPublic,
-	String uuid
+	String isPublic
 ) {
 }

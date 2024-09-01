@@ -27,7 +27,6 @@ public class ReadPostService implements ReadPostUseCase {
 			.likeCount(post.getContent().getLikeCount())
 			.bookmarkCount(post.getContent().getBookmarkCount())
 			.isPublic(post.getContent().getIsPublic())
-			.uuid(post.getContent().getUuid())
 			.build();
 
 		MemberDetailsOutput memberDetailsOutput = MemberDetailsOutput.builder()
@@ -37,6 +36,7 @@ public class ReadPostService implements ReadPostUseCase {
 			.build();
 
 		PostDetailsOutput postDetailsOutput = PostDetailsOutput.builder()
+			.postId(post.getPostId())
 			.contentDetailsOutput(contentDetailsOutput)
 			.memberDetailsOutput(memberDetailsOutput)
 			.build();

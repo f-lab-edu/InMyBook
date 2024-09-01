@@ -30,13 +30,9 @@ class ReadPostServiceTest {
 	@Test
 	@DisplayName("사용자는 독서록 게시글을 조회할 수 있다.")
 	void readPost() {
-		Long contentId = 1L;
-		Long bookId = 1L;
 		String bookUuid = getUuid();
-		Long memberNo = 1L;
 
 		Content content = Content.builder()
-			.contentId(contentId)
 			.title("HTTP 완벽 가이드 독서록")
 			.content("유익합니다.")
 			.fromDate("2024-07-14")
@@ -45,16 +41,15 @@ class ReadPostServiceTest {
 			.likeCount(0)
 			.bookmarkCount(0)
 			.isPublic("Y")
-			.uuid(bookUuid)
 			.build();
 
 		Member member = Member.builder()
-			.memberNo(memberNo)
-			.memberId("dani820")
+			.email("dani820@gmail.com")
 			.nickname("dani")
 			.build();
 
 		Post post = Post.builder()
+			.postId(bookUuid)
 			.content(content)
 			.member(member)
 			.build();
