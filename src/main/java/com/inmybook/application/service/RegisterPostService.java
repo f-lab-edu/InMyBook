@@ -19,7 +19,7 @@ public class RegisterPostService implements RegisterPostUseCase {
 	@Override
 	public String registerPost(RegisterPostCommand registerPostCommand) {
 		Post post = postFactory.createPost(registerPostCommand);
-		Long postNo = registerPostPort.save(post);
+		String postNo = registerPostPort.save(post);
 		String path = post.createPostPath(postNo);
 
 		return path;

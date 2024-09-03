@@ -13,9 +13,9 @@ public class InMemoryPostRepository implements RegisterPostPort {
 	private static long sequence = 0L;
 
 	@Override
-	public Long save(Post post) {
-		post.setPostId(++sequence);
-		memory.put(post.getPostId(), post);
+	public String save(Post post) {
+		long id = ++sequence;
+		memory.put(id, post);
 		return post.getPostId();
 	}
 }

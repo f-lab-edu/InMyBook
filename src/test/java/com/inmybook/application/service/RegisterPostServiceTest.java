@@ -54,9 +54,8 @@ class RegisterPostServiceTest {
 
 		Post post = postFactory.createPost(registerPostCommand);
 		when(mockPostFactory.createPost(registerPostCommand)).thenReturn(post);
-		Long postNo = 1L;
-		when(registerPostPort.save(post)).thenReturn(postNo);
-		String path = post.createPostPath(postNo);
+		when(registerPostPort.save(post)).thenReturn(post.getPostId());
+		String path = post.createPostPath(post.getPostId());
 
 		assertThat(registerPostUseCase.registerPost(registerPostCommand)).isEqualTo(path);
 	}
@@ -87,9 +86,8 @@ class RegisterPostServiceTest {
 
 		Post post = postFactory.createPost(registerPostCommand);
 		when(mockPostFactory.createPost(registerPostCommand)).thenReturn(post);
-		Long postNo = 1L;
-		when(registerPostPort.save(post)).thenReturn(postNo);
-		String path = post.createPostPath(postNo);
+		when(registerPostPort.save(post)).thenReturn(post.getPostId());
+		String path = post.createPostPath(post.getPostId());
 
 		assertThat(registerPostUseCase.registerPost(registerPostCommand)).isEqualTo(path);
 	}

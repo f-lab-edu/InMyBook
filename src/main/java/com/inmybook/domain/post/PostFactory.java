@@ -1,6 +1,7 @@
 package com.inmybook.domain.post;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
@@ -46,11 +47,16 @@ public class PostFactory {
 			.build();
 
 		Post post = Post.builder()
+			.postId(getUuid())
 			.book(book)
 			.content(content)
 			.member(member)
 			.build();
 
 		return post;
+	}
+
+	private String getUuid() {
+		return UUID.randomUUID().toString();
 	}
 }
