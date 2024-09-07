@@ -1,10 +1,11 @@
 package com.inmybook.domain.post;
 
 import lombok.Builder;
+import lombok.Getter;
 
+@Getter
 @Builder
 public class Content {
-	private int contentId;
 	private String title;
 	private String content;
 	private String fromDate;
