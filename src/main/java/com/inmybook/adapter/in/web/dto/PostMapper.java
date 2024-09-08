@@ -3,7 +3,11 @@ package com.inmybook.adapter.in.web.dto;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.inmybook.adapter.in.web.dto.response.ContentResponse;
+import com.inmybook.adapter.in.web.dto.response.MemberResponse;
+import com.inmybook.adapter.in.web.dto.response.PostDetailsResponse;
 import com.inmybook.application.port.in.RegisterPostCommand;
+import com.inmybook.application.service.PostDetailsOutput;
 
 @Component
 public class PostMapper {
@@ -25,5 +29,31 @@ public class PostMapper {
 			.build();
 
 		return registerPostCommand;
+	}
+
+	public PostDetailsResponse createReadPostDetailsResponse(PostDetailsOutput postDetailsOutput) {
+		ContentResponse contentResponse = new ContentResponse(
+			postDetailsOutput.contentDetailsOutput().title(),
+			postDetailsOutput.contentDetailsOutput().content(),
+			postDetailsOutput.contentDetailsOutput().fromDate(),
+			postDetailsOutput.contentDetailsOutput().toDate(),
+			postDetailsOutput.contentDetailsOutput().rating(),
+			postDetailsOutput.contentDetailsOutput().likeCount(),
+			postDetailsOutput.contentDetailsOutput().bookmarkCount(),
+			postDetailsOutput.contentDetailsOutput().isPublic()
+		);
+
+		MemberResponse memberResponse = new MemberResponse(
+			postDetailsOutput.memberDetailsOutput().memberNo(),
+			postDetailsOutput.memberDetailsOutput().nickname()
+		);
+
+		PostDetailsResponse postDetailsResponse = new PostDetailsResponse(
+			postDetailsOutput.postId(),
+			contentResponse,
+			memberResponse
+		);
+
+		return postDetailsResponse;
 	}
 }
