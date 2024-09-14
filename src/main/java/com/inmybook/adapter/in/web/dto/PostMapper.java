@@ -18,8 +18,8 @@ public class PostMapper {
 			.publisher(registerPostInput.book().publisher())
 			.title(registerPostInput.content().title())
 			.content(registerPostInput.content().content())
-			.fromDate(registerPostInput.content().fromDate())
-			.toDate(registerPostInput.content().toDate())
+			.readingStartDate(registerPostInput.content().readingStartDate())
+			.readingEndDate(registerPostInput.content().readingEndDate())
 			.rating(registerPostInput.content().rating())
 			.isPublic(registerPostInput.content().isPublic())
 			.memberId(registerPostInput.member().memberId())
@@ -33,8 +33,8 @@ public class PostMapper {
 		ContentResponse contentResponse = new ContentResponse(
 			postDetailsOutput.contentDetailsOutput().title(),
 			postDetailsOutput.contentDetailsOutput().content(),
-			postDetailsOutput.contentDetailsOutput().fromDate(),
-			postDetailsOutput.contentDetailsOutput().toDate(),
+			postDetailsOutput.contentDetailsOutput().readingStartDate(),
+			postDetailsOutput.contentDetailsOutput().readingEndDate(),
 			postDetailsOutput.contentDetailsOutput().rating(),
 			postDetailsOutput.contentDetailsOutput().likeCount(),
 			postDetailsOutput.contentDetailsOutput().bookmarkCount(),
