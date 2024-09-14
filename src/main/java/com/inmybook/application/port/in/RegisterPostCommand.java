@@ -16,8 +16,8 @@ public record RegisterPostCommand(
 	@NotNull
 	String title,
 	String content,
-	String fromDate,
-	String toDate,
+	String readingStartDate,
+	String readingEndDate,
 	double rating,
 	String isPublic,
 	@NotNull
