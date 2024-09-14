@@ -1,6 +1,5 @@
 package com.inmybook.adapter.in.web.dto;
 
-import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.inmybook.adapter.in.web.dto.response.ContentResponse;
@@ -9,7 +8,6 @@ import com.inmybook.adapter.in.web.dto.response.PostDetailsResponse;
 import com.inmybook.application.port.in.RegisterPostCommand;
 import com.inmybook.application.service.PostDetailsOutput;
 
-@Component
 public class PostMapper {
 	public RegisterPostCommand createRegisterPostCommand(RegisterPostInput registerPostInput,
 		MultipartFile multipartFile) {

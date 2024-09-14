@@ -31,7 +31,7 @@ public class PostController {
 
 	private final RegisterPostUseCase registerPostUseCase;
 	private final ReadPostUseCase readPostUseCase;
-	private final PostMapper postMapper;
+	private static final PostMapper postMapper = new PostMapper();
 
 	@Operation(summary = "독서록 게시글 등록", description = "사용자는 독서록 게시글을 등록할 수 있다.")
 	@ApiResponse(
