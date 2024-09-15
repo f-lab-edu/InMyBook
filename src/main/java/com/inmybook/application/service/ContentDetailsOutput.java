@@ -6,8 +6,8 @@ import lombok.Builder;
 public record ContentDetailsOutput(
 	String title,
 	String content,
-	String fromDate,
-	String toDate,
+	String readingStartDate,
+	String readingEndDate,
 	double rating,
 	int likeCount,
 	int bookmarkCount,

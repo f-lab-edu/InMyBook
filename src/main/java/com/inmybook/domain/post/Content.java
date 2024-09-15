@@ -8,8 +8,8 @@ import lombok.Getter;
 public class Content {
 	private String title;
 	private String content;
-	private String fromDate;
-	private String toDate;
+	private String readingStartDate;
+	private String readingEndDate;
 	@Builder.Default
 	private double rating = 0;
 	@Builder.Default
