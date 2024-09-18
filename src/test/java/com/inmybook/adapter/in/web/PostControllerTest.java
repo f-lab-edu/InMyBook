@@ -1,5 +1,6 @@
 package com.inmybook.adapter.in.web;
 
+import static com.inmybook.adapter.in.web.dto.PostMapper.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -14,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -37,11 +39,9 @@ class PostControllerTest {
 	PostController postController;
 	@Mock
 	ReadPostUseCase readPostUseCase;
-	@Mock
-	PostMapper postMapper;
 
 	private MockMvc mockMvc;
-	private ObjectMapper objectMapper = new ObjectMapper();
+	private final ObjectMapper objectMapper = new ObjectMapper();
 
 	@BeforeEach
 	public void init() {
@@ -54,27 +54,31 @@ class PostControllerTest {
 		PostDetailsOutput mockPostDetailsOutput = getPostDetailsOutput();
 		PostDetailsResponse mockPostDetailsResponse = getPostDetailsResponse(mockPostDetailsOutput);
 		String postId = mockPostDetailsOutput.postId();
-		when(readPostUseCase.findPostById(new ReadPostInput(postId))).thenReturn(mockPostDetailsOutput);
-		when(postMapper.createReadPostDetailsResponse(mockPostDetailsOutput)).thenReturn(mockPostDetailsResponse);
 
-		ResultActions resultActions = mockMvc.perform(get("/posts/{postId}", postId)
-			.contentType(MediaType.APPLICATION_JSON)
-			.characterEncoding("utf-8")
-			.content(postId)
-		);
+		try (MockedStatic<PostMapper> mockPostMapper = mockStatic(PostMapper.class)) {
+			when(readPostUseCase.findPostById(new ReadPostInput(postId))).thenReturn(mockPostDetailsOutput);
+			mockPostMapper.when(() -> createReadPostDetailsResponse(mockPostDetailsOutput)).thenReturn(
+				mockPostDetailsResponse);
 
-		MvcResult mvcResult = resultActions.andExpect(status().isOk()).andReturn();
+			ResultActions resultActions = mockMvc.perform(get("/posts/{postId}", postId)
+				.contentType(MediaType.APPLICATION_JSON)
+				.characterEncoding("utf-8")
+				.content(postId)
+			);
 
-		PostDetailsResponse postDetailsResponse = objectMapper.readValue(mvcResult.getResponse().getContentAsString(
-			StandardCharsets.UTF_8), PostDetailsResponse.class);
+			MvcResult mvcResult = resultActions.andExpect(status().isOk()).andReturn();
 
-		assertThat(postDetailsResponse.postId()).isEqualTo(postId);
-		assertThat(postDetailsResponse.contentResponse().title()).isEqualTo("HTTP 완벽 가이드 독서록");
+			PostDetailsResponse postDetailsResponse = objectMapper.readValue(mvcResult.getResponse().getContentAsString(
+				StandardCharsets.UTF_8), PostDetailsResponse.class);
+
+			assertThat(postDetailsResponse.postId()).isEqualTo(postId);
+			assertThat(postDetailsResponse.contentResponse().title()).isEqualTo("HTTP 완벽 가이드 독서록");
+		}
+
 	}
 
 	private PostDetailsResponse getPostDetailsResponse(PostDetailsOutput postDetailsOutput) {
-		PostMapper postMapper = new PostMapper();
-		return postMapper.createReadPostDetailsResponse(postDetailsOutput);
+		return createReadPostDetailsResponse(postDetailsOutput);
 	}
 
 	private PostDetailsOutput getPostDetailsOutput() {
@@ -97,13 +101,11 @@ class PostControllerTest {
 			"dani820"
 		);
 
-		PostDetailsOutput postDetailsOutput = new PostDetailsOutput(
+		return new PostDetailsOutput(
 			postId,
 			contentDetailsOutput,
 			memberDetailsOutput
 		);
-
-		return postDetailsOutput;
 	}
 
 	private String getUuid() {

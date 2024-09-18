@@ -9,9 +9,10 @@ import com.inmybook.application.port.in.RegisterPostCommand;
 import com.inmybook.application.service.PostDetailsOutput;
 
 public class PostMapper {
-	public RegisterPostCommand createRegisterPostCommand(RegisterPostInput registerPostInput,
+	public static RegisterPostCommand createRegisterPostCommand(RegisterPostInput registerPostInput,
 		MultipartFile multipartFile) {
-		RegisterPostCommand registerPostCommand = RegisterPostCommand.builder()
+
+		return RegisterPostCommand.builder()
 			.isbnNo(registerPostInput.book().isbnNo())
 			.bookName(registerPostInput.book().bookName())
 			.author(registerPostInput.book().author())
@@ -25,11 +26,9 @@ public class PostMapper {
 			.memberId(registerPostInput.member().memberId())
 			.thumbnailImg(multipartFile)
 			.build();
-
-		return registerPostCommand;
 	}
 
-	public PostDetailsResponse createReadPostDetailsResponse(PostDetailsOutput postDetailsOutput) {
+	public static PostDetailsResponse createReadPostDetailsResponse(PostDetailsOutput postDetailsOutput) {
 		ContentResponse contentResponse = new ContentResponse(
 			postDetailsOutput.contentDetailsOutput().title(),
 			postDetailsOutput.contentDetailsOutput().content(),
@@ -46,12 +45,10 @@ public class PostMapper {
 			postDetailsOutput.memberDetailsOutput().nickname()
 		);
 
-		PostDetailsResponse postDetailsResponse = new PostDetailsResponse(
+		return new PostDetailsResponse(
 			postDetailsOutput.postId(),
 			contentResponse,
 			memberResponse
 		);
-
-		return postDetailsResponse;
 	}
 }

@@ -1,5 +1,7 @@
 package com.inmybook.adapter.in.web;
 
+import static com.inmybook.adapter.in.web.dto.PostMapper.*;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.inmybook.adapter.in.web.dto.PostMapper;
 import com.inmybook.adapter.in.web.dto.RegisterPostInput;
 import com.inmybook.adapter.in.web.dto.response.PostDetailsResponse;
 import com.inmybook.application.port.in.ReadPostInput;
@@ -31,7 +32,6 @@ public class PostController {
 
 	private final RegisterPostUseCase registerPostUseCase;
 	private final ReadPostUseCase readPostUseCase;
-	private static final PostMapper postMapper = new PostMapper();
 
 	@Operation(summary = "독서록 게시글 등록", description = "사용자는 독서록 게시글을 등록할 수 있다.")
 	@ApiResponse(
@@ -41,7 +41,7 @@ public class PostController {
 	public ResponseEntity<String> registerPost(@RequestPart RegisterPostInput registerPostInput,
 		@RequestPart(value = "uploadImg", required = false) MultipartFile multipartFile) {
 
-		RegisterPostCommand registerPostCommand = postMapper.createRegisterPostCommand(registerPostInput,
+		RegisterPostCommand registerPostCommand = createRegisterPostCommand(registerPostInput,
 			multipartFile);
 		String path = registerPostUseCase.registerPost(registerPostCommand);
 
@@ -57,7 +57,7 @@ public class PostController {
 		ReadPostInput readPostInput = new ReadPostInput(postId);
 		PostDetailsOutput postDetailsOutput = readPostUseCase.findPostById(readPostInput);
 
-		PostDetailsResponse postDetailsResponse = postMapper.createReadPostDetailsResponse(postDetailsOutput);
+		PostDetailsResponse postDetailsResponse = createReadPostDetailsResponse(postDetailsOutput);
 
 		return new ResponseEntity<>(postDetailsResponse, HttpStatus.OK);
 	}
