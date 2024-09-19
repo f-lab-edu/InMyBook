@@ -22,7 +22,11 @@ public class InMemoryPostRepository implements RegisterPostPort, ReadPostPort {
 
 	@Override
 	public Post findPostById(String id) {
-		Post post = memory.get(id);
-		return post;
+		for (Post post : memory.values()) {
+			if (post.getPostId().equals(id)) {
+				return post;
+			}
+		}
+		throw new RuntimeException("독서록 정보를 찾을 수 없습니다.");
 	}
 }
