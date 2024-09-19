@@ -41,7 +41,7 @@ public class PostMapper {
 		);
 
 		MemberResponse memberResponse = new MemberResponse(
-			postDetailsOutput.memberDetailsOutput().memberNo(),
+			postDetailsOutput.memberDetailsOutput().memberId(),
 			postDetailsOutput.memberDetailsOutput().nickname()
 		);
 
