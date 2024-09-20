@@ -1,15 +1,18 @@
 package com.inmybook.adapter.in.web.dto;
 
-import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.inmybook.adapter.in.web.dto.response.ContentResponse;
+import com.inmybook.adapter.in.web.dto.response.MemberResponse;
+import com.inmybook.adapter.in.web.dto.response.PostDetailsResponse;
 import com.inmybook.application.port.in.RegisterPostCommand;
+import com.inmybook.application.service.PostDetailsOutput;
 
-@Component
 public class PostMapper {
-	public RegisterPostCommand createRegisterPostCommand(RegisterPostInput registerPostInput,
+	public static RegisterPostCommand createRegisterPostCommand(RegisterPostInput registerPostInput,
 		MultipartFile multipartFile) {
-		RegisterPostCommand registerPostCommand = RegisterPostCommand.builder()
+
+		return RegisterPostCommand.builder()
 			.isbnNo(registerPostInput.book().isbnNo())
 			.bookName(registerPostInput.book().bookName())
 			.author(registerPostInput.book().author())
@@ -23,7 +26,29 @@ public class PostMapper {
 			.memberId(registerPostInput.member().memberId())
 			.thumbnailImg(multipartFile)
 			.build();
+	}
 
-		return registerPostCommand;
+	public static PostDetailsResponse createReadPostDetailsResponse(PostDetailsOutput postDetailsOutput) {
+		ContentResponse contentResponse = new ContentResponse(
+			postDetailsOutput.contentDetailsOutput().title(),
+			postDetailsOutput.contentDetailsOutput().content(),
+			postDetailsOutput.contentDetailsOutput().readingStartDate(),
+			postDetailsOutput.contentDetailsOutput().readingEndDate(),
+			postDetailsOutput.contentDetailsOutput().rating(),
+			postDetailsOutput.contentDetailsOutput().likeCount(),
+			postDetailsOutput.contentDetailsOutput().bookmarkCount(),
+			postDetailsOutput.contentDetailsOutput().isPublic()
+		);
+
+		MemberResponse memberResponse = new MemberResponse(
+			postDetailsOutput.memberDetailsOutput().memberId(),
+			postDetailsOutput.memberDetailsOutput().nickname()
+		);
+
+		return new PostDetailsResponse(
+			postDetailsOutput.postId(),
+			contentResponse,
+			memberResponse
+		);
 	}
 }
