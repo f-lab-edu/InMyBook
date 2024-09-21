@@ -43,16 +43,17 @@ class ReadPostPortTest {
 		Content content = Content.builder()
 			.title("HTTP 완벽 가이드 독서록")
 			.content("유익합니다.")
-			.fromDate("2024-07-14")
-			.toDate("2024-07-21")
+			.readingStartDate("2024-07-14")
+			.readingEndDate("2024-07-21")
 			.rating(4.5)
 			.likeCount(0)
 			.bookmarkCount(0)
 			.isPublic("Y")
 			.build();
 
+		String memberId = getUuid();
 		Member member = Member.builder()
-			.email("dani820@gmail.com")
+			.memberId(memberId)
 			.nickname("dani")
 			.build();
 
@@ -73,7 +74,7 @@ class ReadPostPortTest {
 
 		assertThat(post).isNotNull();
 		assertThat(post.getContent().getTitle()).isEqualTo("HTTP 완벽 가이드 독서록");
-		assertThat(post.getMember().getEmail()).isEqualTo("dani820@gmail.com");
+		assertThat(post.getMember().getNickname()).isEqualTo("dani");
 	}
 
 	@Test

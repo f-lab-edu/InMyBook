@@ -43,8 +43,9 @@ class ReadPostServiceTest {
 			.isPublic("Y")
 			.build();
 
+		String memberId = getUuid();
 		Member member = Member.builder()
-			.email("dani820@gmail.com")
+			.memberId(memberId)
 			.nickname("dani")
 			.build();
 

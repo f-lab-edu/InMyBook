@@ -83,6 +83,7 @@ class PostControllerTest {
 
 	private PostDetailsOutput getPostDetailsOutput() {
 		String postId = getUuid();
+		String memberId = getUuid();
 
 		ContentDetailsOutput contentDetailsOutput = new ContentDetailsOutput(
 			"HTTP 완벽 가이드 독서록",
@@ -96,8 +97,7 @@ class PostControllerTest {
 		);
 
 		MemberDetailsOutput memberDetailsOutput = new MemberDetailsOutput(
-			0L,
-			"dani820",
+			memberId,
 			"dani820"
 		);
 

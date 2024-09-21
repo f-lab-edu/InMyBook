@@ -6,7 +6,6 @@ import lombok.Getter;
 @Getter
 @Builder
 public class Member {
-	private Long memberNo;
 	private String memberId;
 	private String nickname;
 	private String email;

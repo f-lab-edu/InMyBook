@@ -30,17 +30,14 @@ public class ReadPostService implements ReadPostUseCase {
 			.build();
 
 		MemberDetailsOutput memberDetailsOutput = MemberDetailsOutput.builder()
-			.memberNo(post.getMember().getMemberNo())
 			.memberId(post.getMember().getMemberId())
 			.nickname(post.getMember().getNickname())
 			.build();
 
-		PostDetailsOutput postDetailsOutput = PostDetailsOutput.builder()
+		return PostDetailsOutput.builder()
 			.postId(post.getPostId())
 			.contentDetailsOutput(contentDetailsOutput)
 			.memberDetailsOutput(memberDetailsOutput)
 			.build();
-
-		return postDetailsOutput;
 	}
 }

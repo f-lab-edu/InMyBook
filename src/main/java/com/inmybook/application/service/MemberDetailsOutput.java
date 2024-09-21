@@ -4,7 +4,6 @@ import lombok.Builder;
 
 @Builder
 public record MemberDetailsOutput(
-	Long memberNo,
 	String memberId,
 	String nickname
 ) {
