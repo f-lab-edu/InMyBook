@@ -16,7 +16,9 @@ public enum ErrorCode {
 	POST_NOT_FOUND(HttpStatus.NOT_FOUND, "독서록 정보가 존재하지 않습니다."),
 	POST_REGISTRATION_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "독서록 등록 중 문제가 발생했습니다. 다시 시도해주세요."),
 	POST_MODIFICATION_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "독서록 수정 중 문제가 발생했습니다. 다시 시도해주세요."),
-	POST_DELETION_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "독서록 삭제 중 문제가 발생했습니다. 다시 시도해주세요.");
+	POST_DELETION_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "독서록 삭제 중 문제가 발생했습니다. 다시 시도해주세요."),
+
+	FILE_READ_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "파일 읽기 작업 중 문제가 발생했습니다. 다시 시도해주세요.");
 
 	private final HttpStatus httpStatus;
 	private final String message;

@@ -16,13 +16,12 @@ public class PostFactory {
 		Thumbnail thumbnail = new Thumbnail();
 		if (registerPostCommand.thumbnailImg() != null) {
 			try {
-				thumbnail = new Thumbnail(registerPostCommand.thumbnailImg().getName()
-					, registerPostCommand.thumbnailImg().getContentType()
-					, registerPostCommand.thumbnailImg().getSize()
-					, registerPostCommand.thumbnailImg().getBytes());
+				thumbnail = new Thumbnail(registerPostCommand.thumbnailImg().getName(),
+					registerPostCommand.thumbnailImg().getContentType(),
+					registerPostCommand.thumbnailImg().getSize(),
+					registerPostCommand.thumbnailImg().getBytes());
 			} catch (IOException e) {
-				// throw new RuntimeException("독서록 게시글을 등록할 수 없습니다.");
-				throw new PostRegistrationFailedException(ErrorCode.INVALID_PARAMETER);
+				throw new PostRegistrationFailedException(ErrorCode.FILE_READ_ERROR);
 			}
 		}
 
