@@ -1,6 +1,7 @@
-package com.inmybook.error.exception;
+package com.inmybook.application.service.exception;
 
 import com.inmybook.error.ErrorCode;
+import com.inmybook.error.exception.InMyBookException;
 
 import lombok.Getter;
 

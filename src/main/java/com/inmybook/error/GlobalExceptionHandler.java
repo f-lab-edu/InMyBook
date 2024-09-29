@@ -4,10 +4,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.inmybook.error.exception.PostDeletionFailedException;
-import com.inmybook.error.exception.PostModificationFailedException;
+import com.inmybook.application.service.exception.PostDeletionFailedException;
+import com.inmybook.application.service.exception.PostModificationFailedException;
+import com.inmybook.application.service.exception.PostRegistrationFailedException;
 import com.inmybook.error.exception.PostNotFoundException;
-import com.inmybook.error.exception.PostRegistrationFailedException;
 
 import lombok.extern.slf4j.Slf4j;
 
