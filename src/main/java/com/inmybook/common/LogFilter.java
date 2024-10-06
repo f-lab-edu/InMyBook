@@ -18,9 +18,10 @@ public class LogFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
 		FilterChain filterChain) throws ServletException, IOException {
 
-		final UUID uuid = UUID.randomUUID();
-		MDC.put("requestId", uuid.toString());
-		MDC.put("userId", "dani820");
+		final String requestId = UUID.randomUUID().toString();
+		final String userId = UUID.randomUUID().toString(); // 임시
+		MDC.put("requestId", requestId);
+		MDC.put("userId", userId);
 
 		long startTime = System.currentTimeMillis();
 
