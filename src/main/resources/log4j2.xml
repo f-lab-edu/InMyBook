@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="DEBUG" monitorInterval="5">
+    <!--공통 속성 설정 -->
+    <Properties>
+        <Property name="LOG_PATTERN">
+            [%equals{%X{requestId}}{}{startup}][%d{yyyy-MM-dd HH:mm:ss}:%-4relative] [%c] [%X{userId}] - %m%n
+        </Property>
+        <Property name="LOG_FILE_PATTERN">
+            [%equals{%X{requestId}}{}{startup}][%d{yyyy-MM-dd HH:mm:ss}:%-4relative] [%C] [%X{userId}] - %m%n
+        </Property>
+        <Property name="DEBUG_LOG_ROLLING_FILE_NAME">application-debug</Property>
+        <Property name="INFO_LOG_ROLLING_FILE_NAME">application-info</Property>
+        <Property name="ERROR_LOG_ROLLING_FILE_NAME">application-error</Property>
+    </Properties>
+
+    <!-- Log Appender 설정 -->
+    <Appenders>
+        <!--ConsoleAppender, RollingFileAppneder -->
+        <Console name="CONSOLE_OUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+
+        <RollingFile name="DEBUG_LOG"
+                     fileName="logs/${DEBUG_LOG_ROLLING_FILE_NAME}.log"
+                     filePattern="logs/${DEBUG_LOG_ROLLING_FILE_NAME}.%d{yyyy-MM-dd-hh}_%i.log">
+            <PatternLayout pattern="${LOG_FILE_PATTERN}"/>
+            <!--LevelRangeFilter필터를 사용할때에 단일 level의 필터만 허용한다. -->
+            <LevelRangeFilter minLevel="DEBUG" maxLevel="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+            <DefaultRolloverStrategy max="5" fileIndex="min">
+                <Delete basePath="/logs" maxDepth="3">
+                    <IfLastModified age="30d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
+        <RollingFile name="INFO_LOG"
+                     fileName="logs/${INFO_LOG_ROLLING_FILE_NAME}.log"
+                     filePattern="logs/${INFO_LOG_ROLLING_FILE_NAME}.%d{yyyy-MM-dd-hh}_%i.log">
+            <PatternLayout pattern="${LOG_FILE_PATTERN}"/>
+            <LevelRangeFilter minLevel="INFO" maxLevel="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+            <DefaultRolloverStrategy max="5" fileIndex="min">
+                <Delete basePath="/logs" maxDepth="3">
+                    <IfLastModified age="30d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
+        <RollingFile name="ERROR_LOG"
+                     fileName="logs/error/${ERROR_LOG_ROLLING_FILE_NAME}.log"
+                     filePattern="logs/error/${ERROR_LOG_ROLLING_FILE_NAME}.%d{yyyy-MM-dd}_%i.log">
+            <PatternLayout pattern="${LOG_FILE_PATTERN}"/>
+            <LevelRangeFilter minLevel="ERROR" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <DefaultRolloverstrategy>
+                <Delete basePath="/logs" maxDepth="3">
+                    <IfLastModified age="30d"/>
+                </Delete>
+            </DefaultRolloverstrategy>
+        </RollingFile>
+
+
+    </Appenders>
+
+    <!--Logging 대상-->
+    <Loggers>
+        <logger name="com.inmybook" additivity="false">
+            <AppenderRef ref="DEBUG_LOG"/>
+            <AppenderRef ref="INFO_LOG"/>
+            <AppenderRef ref="ERROR_LOG"/>
+            <AppenderRef ref="CONSOLE_OUT"/>
+        </logger>
+
+        <Root level="INFO">
+            <AppenderRef ref="CONSOLE_OUT"/>
+        </Root>
+    </Loggers>
+</Configuration>
