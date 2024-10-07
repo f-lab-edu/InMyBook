@@ -6,7 +6,9 @@ import java.util.UUID;
 import org.springframework.stereotype.Component;
 
 import com.inmybook.application.port.in.RegisterPostCommand;
+import com.inmybook.application.service.exception.PostRegistrationFailedException;
 import com.inmybook.domain.member.Member;
+import com.inmybook.error.ErrorCode;
 
 @Component
 public class PostFactory {
@@ -14,12 +16,12 @@ public class PostFactory {
 		Thumbnail thumbnail = new Thumbnail();
 		if (registerPostCommand.thumbnailImg() != null) {
 			try {
-				thumbnail = new Thumbnail(registerPostCommand.thumbnailImg().getName()
-					, registerPostCommand.thumbnailImg().getContentType()
-					, registerPostCommand.thumbnailImg().getSize()
-					, registerPostCommand.thumbnailImg().getBytes());
+				thumbnail = new Thumbnail(registerPostCommand.thumbnailImg().getName(),
+					registerPostCommand.thumbnailImg().getContentType(),
+					registerPostCommand.thumbnailImg().getSize(),
+					registerPostCommand.thumbnailImg().getBytes());
 			} catch (IOException e) {
-				throw new RuntimeException("독서록 게시글을 등록할 수 없습니다.");
+				throw new PostRegistrationFailedException(ErrorCode.FILE_READ_ERROR);
 			}
 		}
 

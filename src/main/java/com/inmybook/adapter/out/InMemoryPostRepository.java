@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 import com.inmybook.application.port.out.ReadPostPort;
 import com.inmybook.application.port.out.RegisterPostPort;
 import com.inmybook.domain.post.Post;
+import com.inmybook.error.ErrorCode;
+import com.inmybook.error.exception.PostNotFoundException;
 
 @Repository
 public class InMemoryPostRepository implements RegisterPostPort, ReadPostPort {
@@ -27,6 +29,6 @@ public class InMemoryPostRepository implements RegisterPostPort, ReadPostPort {
 				return post;
 			}
 		}
-		throw new RuntimeException("독서록 정보를 찾을 수 없습니다.");
+		throw new PostNotFoundException(ErrorCode.POST_NOT_FOUND);
 	}
 }

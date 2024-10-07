@@ -1,6 +1,9 @@
 spring:
   application:
     name: inmybook
+  web:
+    resources:
+      add-mappings: false
 springdoc:
   api-docs:
     path: /api-docs
