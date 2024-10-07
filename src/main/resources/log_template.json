@@ -1,0 +1,40 @@
+{
+  "requestId": {
+    "$resolver": "pattern",
+    "pattern": "%equals{%X{requestId}}{}{startup}"
+  },
+  "timestamp": {
+    "$resolver": "timestamp",
+    "pattern": {
+      "format": "yyyy-MM-dd HH:mm:ss.SSSXXX",
+      "timeZone": "Asia/Seoul"
+    }
+  },
+  "logger": {
+    "$resolver": "logger",
+    "field": "name"
+  },
+  "userId": {
+    "$resolver": "pattern",
+    "pattern": "%equals{%X{userId}}{}{none}"
+  },
+  "message": {
+    "$resolver": "message",
+    "stringified": true
+  },
+  "exception": {
+    "exception": {
+      "message": {
+        "$resolver": "exception",
+        "field": "message"
+      },
+      "stacktrace": {
+        "$resolver": "exception",
+        "field": "stackTrace",
+        "stackTrace": {
+          "stringified": true
+        }
+      }
+    }
+  }
+}
