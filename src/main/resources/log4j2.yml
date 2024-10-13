@@ -93,7 +93,7 @@ Configuration:
   #  Logging 대상
   Loggers:
     Root:
-      level: INFOol
+      level: INFO
       AppenderRef:
         ref: CONSOLE_OUT
     logger:

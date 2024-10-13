@@ -10,9 +10,13 @@
       "timeZone": "Asia/Seoul"
     }
   },
-  "logger": {
-    "$resolver": "logger",
-    "field": "name"
+  "httpMethod": {
+    "$resolver": "pattern",
+    "pattern": "%X{httpMethod}"
+  },
+  "requestUri": {
+    "$resolver": "pattern",
+    "pattern": "%X{requestUri}"
   },
   "userId": {
     "$resolver": "pattern",
@@ -36,5 +40,9 @@
         }
       }
     }
+  },
+  "elapsedTime": {
+    "$resolver": "pattern",
+    "pattern": "%X{elapsedTime}"
   }
 }

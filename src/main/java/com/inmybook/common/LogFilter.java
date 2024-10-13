@@ -22,17 +22,19 @@ public class LogFilter extends OncePerRequestFilter {
 		final String userId = UUID.randomUUID().toString(); // 임시
 		MDC.put("requestId", requestId);
 		MDC.put("userId", userId);
+		MDC.put("httpMethod", request.getMethod());
+		MDC.put("requestUri", request.getRequestURI());
 
 		long startTime = System.currentTimeMillis();
-
-		log.info("{} start for request : {}", this.getClass().getSimpleName(), request.getRequestURI());
 
 		try {
 			filterChain.doFilter(request, response);
 		} finally {
 			long duration = System.currentTimeMillis() - startTime;
-			log.info("{} completed for request : {} - duration : {}ms", this.getClass().getSimpleName(),
-				request.getRequestURI(), duration);
+			MDC.put("elapsedTime", String.valueOf(duration));
+
+			log.info("");
+
 			MDC.clear();
 		}
 	}
