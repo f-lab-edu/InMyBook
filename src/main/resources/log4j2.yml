@@ -1,0 +1,107 @@
+Configuration:
+  name: Default
+  status: DEBUG
+  monitorInterval: 5
+
+  #  공통 속성 설정
+  Properties:
+    Property:
+      - name: DEBUG_LOG_ROLLING_FILE_NAME
+        value: "application-debug"
+      - name: INFO_LOG_ROLLING_FILE_NAME
+        value: "application-info"
+      - name: ERROR_LOG_ROLLING_FILE_NAME
+        value: "application-error"
+
+  #  Log Appender 설정
+  Appenders:
+    #  ConsoleAppender
+    Console:
+      name: CONSOLE_OUT
+      target: SYSTEM_OUT
+      JsonTemplateLayout:
+        eventTemplateUri: "classpath:log_template.json"
+    #  RollingFileAppneder
+    RollingFile:
+      - name: DEBUG_LOG
+        fileName: logs/${DEBUG_LOG_ROLLING_FILE_NAME}.log
+        filePattern: "logs/${DEBUG_LOG_ROLLING_FILE_NAME}.%d{yyyy-MM-dd-hh}_%i.log"
+        JsonTemplateLayout:
+          eventTemplateUri: "classpath:log_template.json"
+        #  LevelRangeFilter필터를 사용할때에 단일 level의 필터만 허용한다.
+        LevelRangeFilter:
+          minLevel: DEBUG
+          maxLevel: DEBUG
+          onMatch: ACCEPT
+          onMismatch: DENY
+        Policies:
+          TimeBasedTriggeringPolicy:
+            modulate: true
+            interval: 1
+        DefaultRolloverStrategy:
+          max: 5
+          fileIndex: min
+          Delete:
+            basePath: /logs
+            maxDepth: 3
+            IfLastModified:
+              age: 30d
+
+      - name: INFO_LOG
+        fileName: logs/${INFO_LOG_ROLLING_FILE_NAME}.log
+        filePattern: "logs/${INFO_LOG_ROLLING_FILE_NAME}.%d{yyyy-MM-dd-hh}_%i.log"
+        JsonTemplateLayout:
+          eventTemplateUri: "classpath:log_template.json"
+        LevelRangeFilter:
+          minLevel: INFO
+          maxLevel: INFO
+          onMatch: ACCEPT
+          onMismatch: DENY
+        Policies:
+          TimeBasedTriggeringPolicy:
+            modulate: true
+            interval: 1
+        DefaultRolloverStrategy:
+          max: 5
+          fileIndex: min
+          Delete:
+            basePath: /logs
+            maxDepth: 3
+            IfLastModified:
+              age: 30d
+
+      - name: ERROR_LOG
+        fileName: logs/error/${ERROR_LOG_ROLLING_FILE_NAME}.log
+        filePattern: "logs/error/${ERROR_LOG_ROLLING_FILE_NAME}.%d{yyyy-MM-dd}_%i.log"
+        JsonTemplateLayout:
+          eventTemplateUri: "classpath:log_template.json"
+        LevelRangeFilter:
+          minLevel: ERROR
+          maxLevel: ERROR
+          onMatch: ACCEPT
+          onMismatch: DENY
+        Policies:
+          SizeBasedTriggeringPolicy:
+            size: 10MB
+        DefaultRollOverStrategy:
+          Delete:
+            basePath: /logs
+            maxDepth: 3
+            IfLastModified:
+              age: 30d
+
+  #  Logging 대상
+  Loggers:
+    Root:
+      level: INFO
+      AppenderRef:
+        ref: CONSOLE_OUT
+    logger:
+      name: com.inmybook
+      level: DEBUG
+      additivity: false
+      AppenderRef:
+        - ref: DEBUG_LOG
+        - ref: INFO_LOG
+        - ref: ERROR_LOG
+        - ref: CONSOLE_OUT
