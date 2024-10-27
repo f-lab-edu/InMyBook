@@ -10,11 +10,9 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Setter
 @Entity
 public class Book {
 	@Id
@@ -28,19 +26,18 @@ public class Book {
 	private String publisher;
 	private String bookThumbUrl;
 
-	@OneToOne(mappedBy = "attach")
+	@OneToOne(mappedBy = "book")
 	private Attach attach;
 
 	@Builder
 	public Book(String isbnNo, String bookName, String bookDetails, String author, String publisher,
 		String bookThumbUrl, Attach attach) {
-		Book book = new Book();
-		book.setIsbnNo(isbnNo);
-		book.setBookName(bookName);
-		book.setBookDetails(bookDetails);
-		book.setAuthor(author);
-		book.setPublisher(publisher);
-		book.setBookThumbUrl(bookThumbUrl);
-		book.setAttach(attach);
+		this.isbnNo = isbnNo;
+		this.bookName = bookName;
+		this.bookDetails = bookDetails;
+		this.author = author;
+		this.publisher = publisher;
+		this.bookThumbUrl = bookThumbUrl;
+		this.attach = attach;
 	}
 }

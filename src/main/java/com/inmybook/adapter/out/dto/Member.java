@@ -13,11 +13,9 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Setter
 @Entity
 public class Member {
 	@Id
@@ -39,12 +37,15 @@ public class Member {
 	@OneToMany(mappedBy = "member")
 	private List<Bookmark> bookmarks = new ArrayList<>();
 
+	@OneToMany(mappedBy = "member")
+	private List<Like> likes = new ArrayList<>();
+
 	@Builder
 	public Member(String email, String password, String nickname, String useYn, String memberUuid) {
-		this.setEmail(email);
-		this.setPassword(password);
-		this.setNickname(nickname);
-		this.setUseYn(useYn);
-		this.setMemberUuid(memberUuid);
+		this.email = email;
+		this.password = password;
+		this.nickname = nickname;
+		this.useYn = useYn;
+		this.memberUuid = memberUuid;
 	}
 }

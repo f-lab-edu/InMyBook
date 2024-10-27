@@ -1,8 +1,9 @@
 package com.inmybook.adapter.out.dto;
 
+import static jakarta.persistence.FetchType.*;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -12,11 +13,9 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Setter
 @Entity
 public class Attach {
 	@Id
@@ -27,21 +26,20 @@ public class Attach {
 	private String orgFileName;
 	private String fileExt;
 	private byte[] fileData;
-	private Long fileSize;
+	private int fileSize;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = LAZY)
 	@JoinColumn(name = "book_id")
 	private Book book;
 
 	@Builder
-	public Attach(String fileName, String orgFileName, String fileExt, byte[] fileData, Long fileSize,
+	public Attach(String fileName, String orgFileName, String fileExt, byte[] fileData, int fileSize,
 		Book book) {
-		Attach attach = new Attach();
-		attach.setFileName(fileName);
-		attach.setOrgFileName(orgFileName);
-		attach.setFileExt(fileExt);
-		attach.setFileData(fileData);
-		attach.setFileSize(fileSize);
-		attach.setBook(book);
+		this.fileName = fileName;
+		this.orgFileName = orgFileName;
+		this.fileExt = fileExt;
+		this.fileData = fileData;
+		this.fileSize = fileSize;
+		this.book = book;
 	}
 }
