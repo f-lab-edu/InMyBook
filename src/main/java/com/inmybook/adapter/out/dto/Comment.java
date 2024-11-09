@@ -1,6 +1,6 @@
 package com.inmybook.adapter.out.dto;
 
-import static jakarta.persistence.FetchType.*;
+import static jakarta.persistence.FetchType.LAZY;
 
 import java.time.LocalDateTime;
 import java.util.List;
