@@ -1,6 +1,5 @@
 package com.inmybook.adapter.out.dto;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,11 +23,12 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Table(name = "POST")
 @Entity
-public class Post {
+public class PostEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "post_id")
+	@Column(name = "POST_ID")
 	private Long id;
 	private String title;
 	private String content;
@@ -36,34 +37,35 @@ public class Post {
 	private ReadingState readingState;
 	private LocalDateTime readingStartDate;
 	private LocalDateTime readingEndDate;
-	private BigDecimal rating;
+	private double rating;
 	private String publicYn;
 	private LocalDateTime registDate;
 	private LocalDateTime updateDate;
 	private String postUuid;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "book_id")
-	private Book book;
+	@JoinColumn(name = "BOOK_ID")
+	private BookEntity book;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "member_id")
-	private Member member;
+	@JoinColumn(name = "MEMBER_ID")
+	private MemberEntity member;
 
 	@OneToMany(mappedBy = "post")
-	private List<Comment> comments;
+	private List<CommentEntity> comments;
 
 	@OneToMany(mappedBy = "post")
-	private List<Bookmark> bookmarks;
+	private List<BookmarkEntity> bookmarks;
 
 	@OneToMany(mappedBy = "post")
-	private List<Like> likes;
+	private List<LikeEntity> likes;
 
 	@Builder
-	public Post(String title, String content, ReadingState readingState, LocalDateTime readingStartDate,
-		LocalDateTime readingEndDate, BigDecimal rating, String publicYn, LocalDateTime registDate,
+	public PostEntity(String title, String content, ReadingState readingState, LocalDateTime readingStartDate,
+		LocalDateTime readingEndDate, double rating, String publicYn, LocalDateTime registDate,
 		LocalDateTime updateDate,
-		String postUuid, Book book, Member member, List<Comment> comments, List<Bookmark> bookmarks, List<Like> likes) {
+		String postUuid, BookEntity book, MemberEntity member, List<CommentEntity> comments,
+		List<BookmarkEntity> bookmarks, List<LikeEntity> likes) {
 		this.title = title;
 		this.content = content;
 		this.readingState = readingState;

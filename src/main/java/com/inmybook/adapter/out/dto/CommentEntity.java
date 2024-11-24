@@ -13,20 +13,20 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Setter
+@Table(name = "COMMENT")
 @Entity
-public class Comment {
+public class CommentEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "comment_id")
+	@Column(name = "COMMENT_ID")
 	private Long id;
 	private String commentContent;
 	private LocalDateTime registDate;
@@ -34,23 +34,23 @@ public class Comment {
 	private int depth;
 
 	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "parent_comment_id")
-	private Comment parentComment;
+	@JoinColumn(name = "PARENT_COMMENT_ID")
+	private CommentEntity parentComment;
 
 	@OneToMany(mappedBy = "parentComment")
-	private List<Comment> childrenComments;
+	private List<CommentEntity> childrenComments;
 
 	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "post_id")
-	private Post post;
+	@JoinColumn(name = "POST_ID")
+	private PostEntity post;
 
 	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "commenter_id")
-	private Member member;
+	@JoinColumn(name = "COMMENTER_ID")
+	private MemberEntity member;
 
 	@Builder
-	public Comment(String commentContent, LocalDateTime registDate, LocalDateTime updateDate, int depth,
-		Comment parentComment, Post post, Member member) {
+	public CommentEntity(String commentContent, LocalDateTime registDate, LocalDateTime updateDate, int depth,
+		CommentEntity parentComment, PostEntity post, MemberEntity member) {
 		this.commentContent = commentContent;
 		this.registDate = LocalDateTime.now();
 		this.depth = depth;
