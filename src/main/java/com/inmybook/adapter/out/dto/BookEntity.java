@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,11 +14,12 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Table(name = "BOOK")
 @Entity
-public class Book {
+public class BookEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "book_id")
+	@Column(name = "BOOK_ID")
 	private Long id;
 	private String isbnNo;
 	private String bookName;
@@ -27,11 +29,11 @@ public class Book {
 	private String bookThumbUrl;
 
 	@OneToOne(mappedBy = "book")
-	private Attach attach;
+	private AttachEntity attach;
 
 	@Builder
-	public Book(String isbnNo, String bookName, String bookDetails, String author, String publisher,
-		String bookThumbUrl, Attach attach) {
+	public BookEntity(String isbnNo, String bookName, String bookDetails, String author, String publisher,
+		String bookThumbUrl, AttachEntity attach) {
 		this.isbnNo = isbnNo;
 		this.bookName = bookName;
 		this.bookDetails = bookDetails;

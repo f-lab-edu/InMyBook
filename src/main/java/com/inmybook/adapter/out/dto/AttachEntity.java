@@ -8,7 +8,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,25 +18,29 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Table(name = "ATTACH")
 @Entity
-public class Attach {
+public class AttachEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "attach_id")
+	@Column(name = "ATTACH_ID")
 	private Long id;
 	private String fileName;
 	private String orgFileName;
 	private String fileExt;
+
+	@Lob
+	@Column(name = "FILE_DATA", nullable = false, columnDefinition = "blob")
 	private byte[] fileData;
 	private int fileSize;
 
 	@OneToOne(fetch = LAZY)
-	@JoinColumn(name = "book_id")
-	private Book book;
+	@JoinColumn(name = "BOOK_ID")
+	private BookEntity book;
 
 	@Builder
-	public Attach(String fileName, String orgFileName, String fileExt, byte[] fileData, int fileSize,
-		Book book) {
+	public AttachEntity(String fileName, String orgFileName, String fileExt, byte[] fileData, int fileSize,
+		BookEntity book) {
 		this.fileName = fileName;
 		this.orgFileName = orgFileName;
 		this.fileExt = fileExt;
